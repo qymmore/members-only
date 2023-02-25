@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Pirates Only</title>
+    <link rel='stylesheet' type="text/css" href='../public/stylesheets/style.css' />
+  </head>
+  <body>
+    <% if (user) {%>
+      <h1>Hello, <%= user.username %>!</h1>
+      <button type="submit"><a href="/log-out">Logout</a></button>
+    <% } else { %>
+    <h1>please log in</h1>
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label><br>
+      <input name="username" placeholder="username" type="text" /><br>
+      <label for="password">Password</label><br>
+      <input name="password" type="password" /><br>
+      <button>Log In</button>
+    </form>
+    <%}%>
+    <button type="submit"><a href="/sign-up">Sign Up</a></button>
+  </body>
+</html>
