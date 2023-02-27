@@ -1,10 +1,26 @@
 block content
     link(rel='stylesheet', href='/stylesheets/style.css')
     if (user)
-        h1= title
-        h2 welcome back, #{user.username} !
-        button(type='submit') 
-            a(href='/log-out') Logout
+        if (!user.isMember)
+            h1= title
+            h2 welcome back, #{user.username} !
+            p Want to become a true member of the club? 
+                a(href='/member') Click here to join 
+            button(type='submit') 
+                a(href='/log-out') Logout
+        else
+            if (!user.isAdmin) 
+                h1= title
+                h2 welcome back, #{user.username} !
+                p Psst, want to become an admin?
+                    a(href='/admin') Enter the secret passcode here
+                button(type='submit') 
+                    a(href='/log-out') Logout
+            else
+                h1= title
+                h2 welcome back, #{user.username} !
+                button(type='submit') 
+                    a(href='/log-out') Logout
     else 
         h1 Welcome! Please log in 
         br
