@@ -1,0 +1,15 @@
+block content
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    if (user)
+        h1= title
+        h2 welcome back, #{user.username} !
+        button(type='submit') 
+            a(href='/log-out') Logout
+    else 
+        h1 Welcome! Please log in 
+        br
+        button(type='submit')
+            a(href='/sign-up') Sign Up 
+        br
+        button(type='submit')
+            a(href='/log-in') Log In

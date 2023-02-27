@@ -1,0 +1,33 @@
+block content 
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    h1= title
+    form(action='/sign-up' method="POST")
+        p Already registered? 
+            a(href='/log-in') Log in 
+        br
+
+        label(for='username') Username 
+        br
+        input(type='text' name='username' required=true maxLength=20)
+        if (error)
+            p #{error}
+        br
+
+        label(for='password') Password 
+        br
+        input(name='password' type='text' required=true)
+        br
+        
+        label(for='confirmPassword') Confirm password 
+        br
+        input(name='confirmPassword' type='text' required=true)
+        if (passwordConfirmationError)
+            p #{passwordConfirmationError}
+        br
+        button(type='submit') Register
+        button(type='submit')  
+            a(href='/') Back
+    
+    if (errors)
+        p #{errors}
+

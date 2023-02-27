@@ -4,26 +4,25 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const User = require('./models/user');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
+
+const routes = require('./routes/routes');
 
 mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
-const User = mongoose.model(
-  "User",
-  new Schema({
-    username: { type: String, required: true },
-    password: { type: String, required: true }
-  })
-);
+const indexRouter = require('./routes/routes');
 
 const app = express();
+
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
+
 
 passport.use(
   new LocalStrategy((username, password, done) => {
@@ -34,14 +33,14 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (bcrypt.compare(password, user.password, (err, res) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        if(err) return done(err);
         if(res){
           return done(null, user)
         } else {
           return done(null, false, { message: "Incorrect password" });
         }
-      })) 
-      return done(null, user);
+      }) 
     });
   })
 );
@@ -61,40 +60,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => res.render("index", {user: req.user}));
-app.get('/sign-up', (req,res) => res.render('sign-up-form'));
-
-app.post('/sign-up', (req,res,next) => {
-  bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-    const user = new User({
-      username: req.body.username,
-      password: hashedPassword
-    }).save(err => {
-      if(err){
-        return next(err);
-      }
-      res.redirect('/');
-    });
-  })
+app.use((req,res,next) => {
+  res.locals.currentUser = req.user;
+  next();
 });
 
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
+app.use('/', indexRouter);
 
-app.get("/log-out", (req, res, next) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
-
-app.listen(5000, () => console.log("app listening on port 3000!"));
+app.listen(5000, () => console.log("app listening on port 5000!"));
 
 module.exports = app;
