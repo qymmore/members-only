@@ -23,15 +23,14 @@ exports.member_post = [
         } else if(req.body.passcode != process.env.MEMBER_PASSCODE) {
             return res.render('member-form', {title: 'Join membership', user: res.locals.currentUser, passcodeError: 'Oops, incorrect passcode!'});
         }
+          const user = new User(res.locals.currentUser);
+          user.isMember = true;
 
-        const user = new User(res.locals.currentUser);
-        user.isMember = true;
-
-        await User.findByIdAndUpdate(res.locals.currentUser._id, user, {}, (err) => {
-            if(err) return next(err)
-            return res.redirect('/member')
-        });
-    },
+      await User.findByIdAndUpdate(res.locals.currentUser._id, user, {}, (err) => {
+        if(err) return next(err)
+        return res.redirect('/');
+      })
+    }
 ];
 
 exports.admin_get = (req,res,next) => {
@@ -54,13 +53,13 @@ exports.admin_post = [
     } else if (req.body.admincode != process.env.ADMIN_PASSCODE) {
       return res.render("admin-form", { title: "So, you want to be an admin?", user: res.locals.currentUser, adminCodeError: "Oops, wrong passcode!" });
     }
+    
+      const user = new User(res.locals.currentUser);
+      user.isAdmin = true;
 
-    const user = new User(res.locals.currentUser);
-    user.isAdmin = true;
-
-    await User.findByIdAndUpdate(res.locals.currentUser._id, user, {}, (err) => {
-      if (err) return next(err);
-      return res.redirect("/");
+      await User.findByIdAndUpdate(res.locals.currentUser._id, user, {}, (err) => {
+        if (err) return next(err);
+        return res.redirect("/");
     });
-  },
+  }
 ]

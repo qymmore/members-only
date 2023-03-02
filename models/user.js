@@ -18,6 +18,11 @@ const UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    avatar: {
+        type: String,
+        required: true,
+        enum: ["chopper", "luffy", "robin", "shanks", "uta", "zoro"], default: "default"
     }
 });
 

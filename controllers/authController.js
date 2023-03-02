@@ -47,6 +47,7 @@ exports.sign_up_post = [
                     password: hashedPassword,
                     isMember: false,
                     isAdmin: false,
+                    avatar: req.body.avatar,
                 }).save(err => err ? next(err) : res.redirect('/'));
             });
         } catch(err){

@@ -1,21 +1,22 @@
+extends layout
+
 block content
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    form(action='/log-in' method="POST")
+    form.auth-form(action='/log-in' method="POST")
         h1= title
-        p Don't have an account? 
+        p.auth-alternative Don't have an account? 
             a(href='/sign-up') Sign up
-        label(for='username') Username 
-        br
-        input(type="text" required=true name="username")
-        br
-        label(for='password') Password 
-        br
-        input(name='password' type='text' required=true)
-        br
+        div 
+            label(for='username') Username 
+            br
+            input#username(type="text" required=true name="username")
+        div
+            label(for='password') Password 
+            br
+            input#password(name='password' type='text' required=true)
         button(type='submit') Log In 
         br
-    button(type='submit')
-        a(href='/') Back
+        button(type='submit')
+            a(href='/') Back
     
     if (errors)
         p #{errors}

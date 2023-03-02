@@ -1,31 +1,70 @@
-block content
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    if (user)
-        if (!user.isMember)
-            h1= title
-            h2 welcome back, #{user.username} !
-            p Want to become a true member of the club? 
-                a(href='/member') Click here to join 
-            button(type='submit') 
-                a(href='/log-out') Logout
-        else
-            if (!user.isAdmin) 
-                h1= title
-                h2 welcome back, #{user.username} !
-                p Psst, want to become an admin?
-                    a(href='/admin') Enter the secret passcode here
-                button(type='submit') 
-                    a(href='/log-out') Logout
-            else
-                h1= title
-                h2 welcome back, #{user.username} !
-                button(type='submit') 
-                    a(href='/log-out') Logout
-    else 
-        h1 Welcome! Please log in 
-        br
-        button(type='submit')
-            a(href='/sign-up') Sign Up 
-        br
-        button(type='submit')
-            a(href='/log-in') Log In
+extends layout 
+
+block content 
+    if (messages)
+        each message in messages 
+            div.msg-container 
+                div.msg-container-inner-left 
+                    if (!user || !user.isMember)
+                        div.msg-container-inner-avatar.default 
+                    else 
+                        if (user && user.isMember)
+                            if (message.user.avatar === "chopper")
+                                div.msg-container-inner-avatar.chopper 
+                            if (message.user.avatar === "luffy")
+                                div.msg-container-inner-avatar.luffy
+                            if (message.user.avatar === "robin")
+                                div.msg-container-inner-avatar.robin
+                            if (message.user.avatar === "shanks")
+                                div.msg-container-inner-avatar.shanks
+                            if (message.user.avatar === "uta")
+                                div.msg-container-inner-avatar.uta
+                            if (message.user.avatar === "zoro")
+                                div.msg-container-inner-avatar.zoro
+                div.msg-container-inner-right
+                    if (user && user.isMember)
+                        p.msg-text= message.text 
+                        div.msg-info
+                            if (user && user.isMember)
+                                if (message.user.avatar === "chopper")
+                                    div.avatar-icon.chopper 
+                                if (message.user.avatar === "luffy")
+                                    div.avatar-icon.luffy
+                                if (message.user.avatar === "robin")
+                                    div.avatar-icon.robin
+                                if (message.user.avatar === "shanks")
+                                    div.avatar-icon.shanks
+                                if (message.user.avatar === "uta")
+                                    div.avatar-icon.uta
+                                if (message.user.avatar === "zoro")
+                                    div.avatar-icon.zoro
+                            p Posted by
+                                span.msg-username #{message.user.username}
+                            p.msg-date= message.time 
+                    else 
+                        p.msg-text= message.text
+                        div.msg-info
+                            if (user && user.isMember)
+                                if (message.user.avatar === "chopper")
+                                    div.avatar-icon.chopper 
+                                if (message.user.avatar === "luffy")
+                                    div.avatar-icon.luffy
+                                if (message.user.avatar === "robin")
+                                    div.avatar-icon.robin
+                                if (message.user.avatar === "shanks")
+                                    div.avatar-icon.shanks
+                                if (message.user.avatar === "uta")
+                                    div.avatar-icon.uta
+                                if (message.user.avatar === "zoro")
+                                    div.avatar-icon.zoro
+                            else 
+                                div.avatar-icon.default
+                            
+                            p Posted by 
+                                span.msg-username Anonymous 
+                            p Date: N/A
+                    if (user && user.isAdmin)
+                        div.delete-msg
+                            form(action="" method="POST")
+                                input#messageId(type='hidden' name="messageId" required=true value=message._id)
+                                button(type='submit') Delete

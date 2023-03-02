@@ -1,14 +1,16 @@
+extends layout 
+
 block content 
-    link(rel='stylesheet', href='/stylesheets/style.css')
     if (!user.isAdmin)
-        form(action='/admin' method="POST")
-            h1= title 
-            label(for='admincode') Enter the special admin code
-            br
-            input(name='admincode' type='text')
-            br
-            if (adminCodeError)
-                p #{adminCodeError}
+        form.auth-form(action='' method="POST")
+            h2= title
+            div 
+                label(for='admincode') Enter the special admin code
+                br
+                input#passcode(name='admincode' type='text')
+                br
+                if (adminCodeError)
+                    p(style="color: red") #{adminCodeError}
             button(type='submit') Submit 
             br
             button(type='submit')  
@@ -16,8 +18,8 @@ block content
         
         if (errors)
             p #{errors}
-        
     else 
-        h2 You're an admin! 
-        br
-        a(href='/') Return to homepage
+        div(style="width: 50%; margin: 0 auto; text-align: center")
+            h2 You're an admin! 
+            br
+            a(href='/') Return to homepage

@@ -1,7 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: rosybrown;
+  background-color: #3993f3;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  width: 75%;
+  max-width: 1200px;
+}
+
+.username-layout {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  color: white;
+  font-size: 0.9em;
+  padding: 0 0.5em;
+  background-color: #00000075;
 }
 
 a, a:visited {
@@ -9,3 +32,388 @@ a, a:visited {
   text-decoration: none;
 }
 
+/* NAVBAR */
+
+
+.title {
+  text-decoration: none;
+  padding: 19px 0;
+  color: white;
+  transition: 250ms;
+}
+
+.title:hover {
+  color: #d82085;
+}
+
+.navbar {
+  margin: 2.5em 0;
+  width: 100%;
+  height: 60px;
+  background-color: bisque;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.5em;
+  color: black;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.5);
+}
+
+.navbar ul {
+  display: flex;
+  height: 60px;
+}
+
+.navbar ul a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar ul li {
+  padding: 0 1em;
+  list-style-type: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: 250ms;
+}
+
+.navbar ul li:hover {
+  background-color: #f02494;
+  border-radius: 2px;
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .navbar ul {
+    height: 50px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .navbar {
+    padding: 0;
+  }
+
+  .title {
+    font-size: 0.9em;
+  }
+
+  .navbar ul {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+  }
+  
+  .navbar ul a {
+    width: 100%;
+  }
+  
+  .navbar ul li {
+    padding: 1em 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 0.8em;
+  }
+}
+
+/* MESSAGES */
+
+.msg-container {
+  width: 65%;
+  min-height: 180px;
+  height: auto;
+  margin: 3em auto;
+  background-color: azure;
+  border-radius: 0.5em;
+  box-shadow: 0 0 3px 3px azure;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "avatar msg-info msg-info msg-info"
+}
+
+.msg-container-inner-left {
+  width: 200px;
+  grid-area: avatar;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg-container-inner-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+  background-color: teal;
+  text-align: center;
+  background-position: center;
+  background-size: cover;
+}
+
+.msg-container-inner-right {
+  grid-area: msg-info;
+  padding: 2em 2em 2em 0;
+}
+
+.msg-title {
+  margin: 0.25em 0 1.5em 0;
+  color: rgb(50, 50, 50);
+  font-weight: 500;
+  font-size: 1.05em;
+  overflow-wrap: break-word;
+}
+
+.msg-text {
+  color: rgb(75, 75, 75);
+  font-size: 0.95em;
+}
+
+.msg-info {
+  border-top: 1px solid lightgrey;
+  font-size: 0.8em;
+  margin: 1.5em 0 0 0;
+  padding: 1.5em 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.msg-username {
+  font-weight: 500;
+}
+
+.delete-msg {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+
+.delete-msg button {
+  border: none;
+  background-color: azure;
+  cursor: pointer;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+.delete-msg button:hover {
+  color: #f02494;
+  font-weight: 500;
+}
+
+.avatar-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 992px) {
+  .msg-container {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .msg-container {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .msg-container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-areas: "msg-info"
+  }
+
+  .msg-container-inner-right {
+    padding: 1em;
+  }
+
+  .msg-container-inner-left {
+    display: none;
+  }
+
+  .msg-text {
+    text-align: center;
+  }
+
+  .msg-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .avatar-icon {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 1em;
+  }
+}
+
+/* FORMS */
+
+.auth-form {
+  width: 60%;
+  margin: 0 auto 2em auto;
+  padding: 1.5em 4em;
+  background-color: azure;
+  box-shadow: 0 0 3px 3px azure;
+  border-radius: 0.5em;
+}
+
+.sign-up-img {
+  width: 60px;
+  float: right;
+}
+
+.auth-alternative {
+  margin: 1em 0;
+  font-size: 0.8em;
+}
+
+.auth-alternative a {
+  text-decoration: none;
+  color: rgb(50, 116, 187);
+}
+
+.auth-alternative a:hover {
+  text-decoration: underline;
+}
+
+.auth-form div {
+  display: flex;
+  flex-direction: column;
+  margin: 0.25em 0 0.5em 0;
+}
+
+.auth-form div label {
+  margin: 0.5em 0;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.auth-form div input {
+  background-color: rgb(230, 230, 230);
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.auth-form button {
+  margin-top: 0.75em;
+  border: none;
+  border-radius: 7px;
+  height: 40px;
+  padding: 0 1.5em;
+  color: white;
+  font-family: 'Red Hat Display', sans-serif;
+  background-color: rosybrown;
+  cursor: pointer;
+  transition: 250ms;
+  font-weight: 500;
+}
+
+.auth-form a {
+  color: white;
+  background-color: rosybrown;
+}
+
+.auth-form button:hover {
+  background-color: #da1f85;
+}
+
+.avatar-container {
+  height: 110px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  overflow-x: scroll;
+  margin: 0.25em 0;
+}
+
+.avatar-container input {
+  display: none;
+}
+
+.avatar-container input:checked + .avatar{
+  border: 5px solid #f02494;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 100%;
+  border: 5px solid rgba(255, 255, 255, 0);
+  background-position: bottom;
+  background-size: cover;
+  cursor: pointer;
+  margin: 1rem 1em;
+}
+
+.chopper {
+  background-image: url('../images/chopper.jpg');
+}
+
+.default {
+  background-image: url('../images/default.jpg');
+}
+
+.luffy {
+  background-image: url('../images/luffy.jpeg');
+}
+
+.robin {
+  background-image: url('../images/robin.jpeg');
+}
+
+.shanks {
+  background-image: url('../images/shanks.jpeg');
+}
+
+.uta {
+  background-image: url('../images/uta.jpeg');
+}
+
+.zoro {
+  background-image: url('../images/zoro.jpeg');
+}
+
+@media only screen and (max-width: 992px) {
+  .auth-form {
+    width: 60%;
+  }
+
+  .auth-form button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .auth-form {
+    width: 80%;
+    padding: 2em;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .auth-form {
+    width: 100%;
+  }
+}

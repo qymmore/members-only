@@ -4,9 +4,11 @@ const router = express.Router();
 const auth_controller = require('../controllers/authController')
 const index_controller = require('../controllers/indexController')
 const user_controller = require('../controllers/userController')
+const message_controller = require('../controllers/messageController')
 
 // HOMEPAGE ROUTE
 router.get('/', index_controller.index);
+router.post('/', message_controller.delete_message_post);
 
 // LOG IN ROUTES
 router.get('/log-in', auth_controller.log_in_get);
@@ -29,5 +31,7 @@ router.get('/admin', user_controller.admin_get);
 router.post('/admin', user_controller.admin_post);
 
 // MESSAGE ROUTES
+router.get('/message', message_controller.message_get);
+router.post('/message', message_controller.message_post);
 
 module.exports = router;

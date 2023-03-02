@@ -1,18 +1,21 @@
+extends layout
+
 block content 
-    link(rel='stylesheet', href='/stylesheets/style.css')
     if (!user.isMember)
-        form(action='/member' method="POST")
-            h1= title 
-            label(for='passcode') Enter the membership passcode 
-            br
-            input(name='passcode' required=true type='text')
-            if(passcodeError)
-                p #{passcodeError}
+        form.auth-form(action='' method="POST")
+            h1= title
+            div 
+                label(for='passcode') Enter the membership passcode 
+                br
+                input#passcode(name='passcode' required=true type='text')
+                if (passcodeError)
+                    p(style="color: red") #{passcodeError}
             button(type='submit') Submit 
         
         if (errors)
             p #{errors}
-        
     else 
-        h2 Hurray! You're a member now! 
-        a(href='/') Return to homepage
+        div(style="width: auto; margin: 0 auto; text-align: center")
+            h2 Hurray! You're a member now! 
+            br
+            a(href='/') Return to homepage 
